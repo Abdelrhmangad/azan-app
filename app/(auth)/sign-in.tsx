@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { images } from '@/constants'
 import FormField from '@/components/FormField'
 import CustomButton from '@/components/CustomButton'
-import { signIn } from '@/lib/appWrite'
+import { signIn, signOut } from '@/lib/appWrite'
 
 const SignIn = () => {
     const [form, setForm] = React.useState({
@@ -68,6 +68,13 @@ const SignIn = () => {
                         textStyles='text-primary'
                         isLoading={isSubmitting}
                     />
+                    {/* <CustomButton
+                        title='Log out'
+                        containerStyles='mt-7 w-full ms-0'
+                        handlePress={signOut}
+                        textStyles='text-primary'
+                        isLoading={isSubmitting}
+                    /> */}
                     <View className='justify-center items-center pt-6 flex-row gap-2'>
                         <Text className="text-gray-100 font-pregular text-lg text-center">
                             Don't have an account?{' '}
