@@ -1,6 +1,6 @@
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { Link } from 'expo-router'
+import { Link, router } from 'expo-router'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
 import { images } from '@/constants'
@@ -29,7 +29,7 @@ const index = () => {
 
           <CustomButton
             title='Continue with email'
-            handlePress={() => console.log('Continue with email')}
+            handlePress={() => router.push('sign-in')}
             containerStyles='w-full mt-7'
 					/>
         </View>

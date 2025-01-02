@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Slot, SplashScreen } from 'expo-router'
+import { Slot, SplashScreen, Stack } from 'expo-router'
 import "../styles/global.css"
 import { useFonts } from 'expo-font'
 
@@ -35,7 +35,16 @@ const _RootLayout = () => {
 	}
 
 	return (
-		<Slot />
+		<Stack
+			screenOptions={{
+				headerShown: false,
+			}}
+		>
+			<Stack.Screen name='index' />
+			<Stack.Screen name='(auth)' />
+			<Stack.Screen name='(tabs)' />
+			{/* <Stack.Screen name='/search/[query]' /> */}
+		</Stack>
 	)
 }
 
