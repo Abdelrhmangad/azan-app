@@ -27,7 +27,7 @@ const FormField = ({ title, placeholder, value, handleChangeText, otherStyles, .
           placeholder={placeholder}
           placeholderTextColor={'#7b7b8b'}
           onChangeText={handleChangeText}
-          secureTextEntry={title === 'Password' && showPassword ? true : false}
+          secureTextEntry={title === 'Password' && !showPassword ? true : false}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           />

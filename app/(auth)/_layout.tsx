@@ -18,8 +18,8 @@ const _AuthLayout = () => {
                     headerShown: false,
                 }}
             >
-                <Stack.Screen name='SignIn' />
-                <Stack.Screen name='SignUp' />
+                <Stack.Screen name='sign-in' />
+                <Stack.Screen name='sign-up' />
             </Stack>
             <StatusBar
                 backgroundColor='#161622'

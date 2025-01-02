@@ -1,10 +1,11 @@
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Alert, Image, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { Link, Stack } from 'expo-router'
+import { Link, router, Stack } from 'expo-router'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { images } from '@/constants'
 import FormField from '@/components/FormField'
 import CustomButton from '@/components/CustomButton'
+import { createUser } from '@/lib/appWrite'
 
 const SignUp = () => {
     const [form, setForm] = React.useState({
@@ -15,8 +16,23 @@ const SignUp = () => {
 
     const [isSubmitting, setIsSubmitting] = React.useState(false)
 
-    function submit() {
-        console.log('submit')
+    async function submit() {
+        setIsSubmitting(true)
+        if (!form.email || !form.password || !form.username) {
+            setIsSubmitting(false)
+            Alert.alert('Error', 'Please fill all fields')
+            return
+        }
+        try {
+            const result = await createUser(form.email, form.password, form.username)
+            // set to global store
+            router.replace('/home')
+        } catch (error: any) {
+            setIsSubmitting(false)
+            Alert.alert('Error', error.message)
+        } finally {
+            setIsSubmitting(false)
+        }
     }
     return (
         <SafeAreaView className="bg-primary h-full">
@@ -30,6 +46,7 @@ const SignUp = () => {
                     <Text className="text-2xl font-semibold text-white mt-10 font-psemibold">
                         Sign up to Aora!
                     </Text>
+
                     <FormField
                         title='username'
                         value={form.username}
@@ -37,7 +54,6 @@ const SignUp = () => {
                         otherStyles='mt-10'
                         placeholder={"Enter your username"}
                     />
-
 
                     <FormField
                         title='Email'
@@ -55,8 +71,9 @@ const SignUp = () => {
                         otherStyles='mt-7'
                         placeholder={"Enter your password"}
                     />
+
                     <CustomButton
-                        title='Sign in'
+                        title='Sign up'
                         containerStyles='mt-7 w-full ms-0'
                         handlePress={submit}
                         textStyles='text-primary'
