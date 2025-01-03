@@ -119,4 +119,19 @@ export async function getAllPosts() {
 	} catch (error: any) {
 	  throw new Error(error);
 	}
-  }
+}
+
+  // Get all video Posts
+export async function getLatestPosts() {
+	try {
+		const posts = await databases.listDocuments(
+			appwriteConfig.databaseId,
+			appwriteConfig.videoCollectionId,
+			[Query.orderDesc("$createdAt"), Query.limit(7)]
+		);
+
+	  	return posts.documents;
+	} catch (error: any) {
+	  	throw new Error(error);
+	}
+}

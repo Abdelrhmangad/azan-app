@@ -6,12 +6,14 @@ import SearchInput from '@/components/SearchInput'
 import Trending from '@/components/Trending'
 import VideoCard from '@/components/VideoCard'
 import EmptyState from '@/components/EmptyState'
-import { getAllPosts } from '@/lib/appWrite'
+import { getAllPosts, getLatestPosts } from '@/lib/appWrite'
 import useAppwrite from '@/lib/useAppWrite'
 
 
 const Home = () => {
 	const { data: posts, loading, refetch } = useAppwrite(getAllPosts);
+	const { data: latestPosts, loading: loadingLatest } = useAppwrite(getLatestPosts);
+
 
 	const [refreshing, setRefreshing] = useState(false);
 	console.log("data", posts);
@@ -64,7 +66,7 @@ const Home = () => {
 						<View className='w-full flex-1 pt-5 pb-8'>
 							<Text className='text-gray-100 text-lg font-pregular mb-3'>Latest Videos</Text>
 							<Trending
-								posts={[{id: 1}, {id: 2}, {id: 3}] ?? []}
+								posts={latestPosts ?? []}
 							/>
 						</View>
 					</View>

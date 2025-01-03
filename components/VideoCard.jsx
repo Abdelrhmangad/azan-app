@@ -41,24 +41,16 @@ const VideoCard = ({ title, creator, avatar, thumbnail, video }) => {
       </View>
 
       {play ? (
-        <Video
-          source={{ uri: video }}
-          className="w-full h-60 rounded-xl mt-3"
-          resizeMode={ResizeMode.CONTAIN}
-          useNativeControls
-          shouldPlay
-          onPlaybackStatusUpdate={(status) => {
-            if (status.didJustFinish) {
-              setPlay(false);
-            }
-          }}
-        />
+        <Text className="text-white font-psemibold text-lg mt-3">
+          Playing...
+        </Text>
       ) : (
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={() => setPlay(true)}
           className="w-full h-60 rounded-xl mt-3 relative flex justify-center items-center"
         >
+          {/* URI: thumbnail is a remote url so we used it like that */}
           <Image
             source={{ uri: thumbnail }}
             className="w-full h-full rounded-xl mt-3"
