@@ -1,33 +1,38 @@
-import { View, Text, FlatList, TouchableOpacity, ImageBackground, Image } from 'react-native'
-import React from 'react'
+import { useState } from "react";
+import { ResizeMode, Video } from "expo-av";
 import * as Animatable from "react-native-animatable";
-import { icons } from '@/constants';
+import {
+	Button,
+	FlatList,
+	Image,
+	ImageBackground,
+	StyleSheet,
+	TouchableOpacity,
+	View,
+} from "react-native";
 
+import { icons } from "../constants";
 
 const zoomIn = {
 	0: {
 		scale: 0.9,
 	},
 	1: {
-		scale: 1.2,
-	}
-}
-
+		scale: 1,
+	},
+};
 
 const zoomOut = {
 	0: {
 		scale: 1,
 	},
 	1: {
-		scale: 0.9
-	}
-}
+		scale: 0.9,
+	},
+};
 
 const TrendingItem = ({ activeItem, item }) => {
-	const [play, setPlay] = React.useState(false);
-	console.log("activeItem", activeItem);
-	console.log("activeItem", item);
-
+	const [play, setPlay] = useState(false);
 
 	return (
 		<Animatable.View
@@ -36,31 +41,36 @@ const TrendingItem = ({ activeItem, item }) => {
 			duration={500}
 		>
 			{play ? (
-				<Text className='text-white'>Playing...</Text>
+				<VideoScreen
+					videoSource={item.video}
+				/>
 			) : (
 				<TouchableOpacity
-					className='relative justify-center items-center'
+					className="relative flex justify-center items-center"
 					activeOpacity={0.7}
 					onPress={() => setPlay(true)}
 				>
 					<ImageBackground
-						source={{ uri: item.thumbnail }}
-						className='w-52 h-72 rounded-[35px] my-5 overflow-hidden shadow-lg shadow-black/40'
-						resizeMode='cover'
+						source={{
+							uri: item.thumbnail,
+						}}
+						className="w-52 h-72 rounded-[33px] my-5 overflow-hidden shadow-lg shadow-black/40"
+						resizeMode="cover"
 					/>
+
 					<Image
 						source={icons.play}
-						className='w-12 h-12 absolute'
-						resizeMode='contain'
+						className="w-12 h-12 absolute"
+						resizeMode="contain"
 					/>
 				</TouchableOpacity>
 			)}
 		</Animatable.View>
-	)
-}
+	);
+};
 
 const Trending = ({ posts }) => {
-	const [activeItem, setActiveItem] = React.useState(posts[0]);
+	const [activeItem, setActiveItem] = useState(posts[0]);
 
 	const viewableItemsChanged = ({ viewableItems }) => {
 		if (viewableItems.length > 0) {
@@ -71,16 +81,65 @@ const Trending = ({ posts }) => {
 	return (
 		<FlatList
 			data={posts}
-			keyExtractor={(item) => item.id}
-			renderItem={({ item }) => <TrendingItem activeItem={activeItem} item={item} />}
 			horizontal
+			keyExtractor={(item) => item.$id}
+			renderItem={({ item }) => (
+				<TrendingItem activeItem={activeItem} item={item} />
+			)}
 			onViewableItemsChanged={viewableItemsChanged}
 			viewabilityConfig={{
 				itemVisiblePercentThreshold: 70,
 			}}
 			contentOffset={{ x: 170 }}
 		/>
-	)
+	);
+};
+
+export default Trending;
+
+import { useEvent } from 'expo';
+import { useVideoPlayer, VideoView } from 'expo-video';
+
+export function VideoScreen({ videoSource }) {
+	const player = useVideoPlayer(videoSource, player => {
+		player.loop = true;
+		player.play();
+	});
+
+	const { isPlaying } = useEvent(player, 'playingChange', { isPlaying: player.playing });
+
+	return (
+		<View style={styles.contentContainer}>
+			<VideoView style={styles.video} player={player} allowsFullscreen allowsPictureInPicture />
+			<View style={styles.controlsContainer}>
+				<Button
+					title={isPlaying ? 'Pause' : 'Play'}
+					onPress={() => {
+						if (isPlaying) {
+							player.pause();
+						} else {
+							player.play();
+						}
+					}}
+				/>
+			</View>
+		</View>
+	);
 }
 
-export default Trending
+const styles = StyleSheet.create({
+	contentContainer: {
+		flex: 1,
+		padding: 10,
+		alignItems: 'center',
+		justifyContent: 'center',
+		paddingHorizontal: 50,
+	},
+	video: {
+		width: 350,
+		height: 275,
+	},
+	controlsContainer: {
+		padding: 10,
+	},
+});
