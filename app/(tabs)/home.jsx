@@ -16,12 +16,10 @@ const Home = () => {
 
 
 	const [refreshing, setRefreshing] = useState(false);
-	console.log("data", posts);
-	
 	const onRefresh = async () => {
-	  setRefreshing(true);
-	  await refetch();
-	  setRefreshing(false);
+		setRefreshing(true);
+		await refetch();
+		setRefreshing(false);
 	};
 	return (
 		<SafeAreaView className='bg-primary h-full'>
@@ -78,9 +76,9 @@ const Home = () => {
 					/>
 				)}
 				refreshControl={
-					<RefreshControl 
-						refreshing={refreshing} 
-						onRefresh={onRefresh} 
+					<RefreshControl
+						refreshing={refreshing}
+						onRefresh={onRefresh}
 					/>
 				}
 			/>

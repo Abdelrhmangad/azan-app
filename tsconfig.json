@@ -14,5 +14,5 @@
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "nativewind-env.d.ts"
-, "app/index.jsx", "context/GlobalProviders.js", "app/(tabs)/home.jsx", "lib/useAppWrite.js"  ]
+, "app/index.jsx", "context/GlobalProviders.js", "app/(tabs)/home.jsx", "lib/useAppWrite.js", "app/(tabs)/_layout.jsx"  ]
 }

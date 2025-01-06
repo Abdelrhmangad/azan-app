@@ -2,13 +2,10 @@ import { useState } from "react";
 import { ResizeMode, Video } from "expo-av";
 import * as Animatable from "react-native-animatable";
 import {
-	Button,
 	FlatList,
 	Image,
 	ImageBackground,
-	StyleSheet,
 	TouchableOpacity,
-	View,
 } from "react-native";
 
 import { icons } from "../constants";
@@ -41,8 +38,17 @@ const TrendingItem = ({ activeItem, item }) => {
 			duration={500}
 		>
 			{play ? (
-				<VideoScreen
-					videoSource={item.video}
+				<Video
+					source={{ uri: item.video }}
+					className="w-52 h-72 rounded-[33px] mt-3 bg-white/10"
+					resizeMode={ResizeMode.CONTAIN}
+					useNativeControls
+					shouldPlay
+					onPlaybackStatusUpdate={(status) => {
+						if (status.didJustFinish) {
+							setPlay(false);
+						}
+					}}
 				/>
 			) : (
 				<TouchableOpacity
@@ -96,50 +102,3 @@ const Trending = ({ posts }) => {
 };
 
 export default Trending;
-
-import { useEvent } from 'expo';
-import { useVideoPlayer, VideoView } from 'expo-video';
-
-export function VideoScreen({ videoSource }) {
-	const player = useVideoPlayer(videoSource, player => {
-		player.loop = true;
-		player.play();
-	});
-
-	const { isPlaying } = useEvent(player, 'playingChange', { isPlaying: player.playing });
-
-	return (
-		<View style={styles.contentContainer}>
-			<VideoView style={styles.video} player={player} allowsFullscreen allowsPictureInPicture />
-			<View style={styles.controlsContainer}>
-				<Button
-					title={isPlaying ? 'Pause' : 'Play'}
-					onPress={() => {
-						if (isPlaying) {
-							player.pause();
-						} else {
-							player.play();
-						}
-					}}
-				/>
-			</View>
-		</View>
-	);
-}
-
-const styles = StyleSheet.create({
-	contentContainer: {
-		flex: 1,
-		padding: 10,
-		alignItems: 'center',
-		justifyContent: 'center',
-		paddingHorizontal: 50,
-	},
-	video: {
-		width: 350,
-		height: 275,
-	},
-	controlsContainer: {
-		padding: 10,
-	},
-});
