@@ -3,5 +3,25 @@
         "appwrite",
         "pmedium",
         "viewability"
-    ]
+    ],
+    "workbench.colorCustomizations": {
+        "activityBar.activeBackground": "#000e8a",
+        "activityBar.background": "#000e8a",
+        "activityBar.foreground": "#e7e7e7",
+        "activityBar.inactiveForeground": "#e7e7e799",
+        "activityBarBadge.background": "#bf0013",
+        "activityBarBadge.foreground": "#e7e7e7",
+        "commandCenter.border": "#e7e7e799",
+        "sash.hoverBorder": "#000e8a",
+        "statusBar.background": "#000957",
+        "statusBar.foreground": "#e7e7e7",
+        "statusBarItem.hoverBackground": "#000e8a",
+        "statusBarItem.remoteBackground": "#000957",
+        "statusBarItem.remoteForeground": "#e7e7e7",
+        "titleBar.activeBackground": "#000957",
+        "titleBar.activeForeground": "#e7e7e7",
+        "titleBar.inactiveBackground": "#00095799",
+        "titleBar.inactiveForeground": "#e7e7e799"
+    },
+    "peacock.color": "#000957"
 }

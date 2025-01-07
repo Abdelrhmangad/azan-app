@@ -1,11 +1,11 @@
 {
 	"expo": {
-		"name": "Aora",
-		"slug": "aora",
+		"name": "Azan",
+		"slug": "azan",
 		"version": "1.0.0",
 		"orientation": "portrait",
-		"icon": "./assets/icon.png",
-		"scheme": "Aora",
+		"icon": "./assets/mosqueImg.png",
+		"scheme": "Azan",
 		"userInterfaceStyle": "automatic",
 		"newArchEnabled": true,
 		"ios": {
@@ -13,10 +13,10 @@
 		},
 		"android": {
 			"adaptiveIcon": {
-				"foregroundImage": "./assets/adaptive-icon.png",
+				"foregroundImage": "./assets/mosqueImg.png",
 				"backgroundColor": "#ffffff"
 			},
-			"package": "com.jsm.gads-aora"
+			"package": "com.jsm.azan"
 		},
 		"web": {
 			"bundler": "metro",
