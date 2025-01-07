@@ -13,7 +13,7 @@
 		},
 		"android": {
 			"adaptiveIcon": {
-				"foregroundImage": "./assets/mosqueImg.png",
+				"foregroundImage": "./assets/mosqueBg.jpg",
 				"backgroundColor": "#ffffff"
 			},
 			"package": "com.jsm.azan"
