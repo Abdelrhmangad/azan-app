@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { icons } from '@/constants'
 import { Image, Text, View } from 'react-native'
 import { Link } from 'expo-router'
+import useCurrentTime from "@/hooks/useCurrentTime";
 
 const HomeHeader = () => {
+    const { hours, minutes, amPm } = useCurrentTime();
+    console.log("hours", hours);
+
     return (
         <View className='pt-6'>
             <View className='flex items-center justify-between flex-row'>
@@ -16,7 +20,7 @@ const HomeHeader = () => {
                         numberOfLines={1} // Restrict text to one line
                         ellipsizeMode='tail' // Add ellipsis at the end
                     >
-                        Itay el Baroud jfkasdjflkasdjfklasd fjaksldf
+                        Itay el Baroud
                     </Text>
                 </View>
                 <Link
@@ -35,8 +39,8 @@ const HomeHeader = () => {
                     <Text
                         className='text-6xl text-white pt-10 font-psemibold'
                     >
-                        05:21
-                        <Text className='text-lg text-white font-pregular'>AM</Text>
+                        {hours}:{minutes}{" "}
+                        <Text className='text-lg text-white font-pregular'>{amPm}</Text>
                     </Text>
                 </View>
             </View>
