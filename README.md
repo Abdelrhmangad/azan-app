@@ -11,9 +11,7 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 
 ## Bugs
 Some of the bugs I counter while developing:
-- The app doesn't automatically refetch data after mounting -- has to do a save first
-
-
+- ```The app doesn't automatically refetch data after mounting -- has to do a save first```
 
 ## For More Info about the types of the most important objects of the app look at the types.ts file 
 

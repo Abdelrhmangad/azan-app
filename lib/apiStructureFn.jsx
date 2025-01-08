@@ -1,8 +1,6 @@
 import AzanAudio from "@/assets/azans-audios/azan-audio.mp3";
 
 export default function convertPrayerTimes(prayerTimesObj) {
-    console.log("prayerTimesObj OBJECT", prayerTimesObj);
-
     const icons = {
         Fajr: "weather-sunset-up",
         Dhuhr: "weather-sunny",

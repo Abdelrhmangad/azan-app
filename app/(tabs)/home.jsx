@@ -22,12 +22,11 @@ const index = () => {
 				hijriDate: `${islamicDate?.month?.number + 1} ${islamicDate?.month?.en}, ${islamicDate?.year}`,
 				prayerTimes: convertPrayerTimes(prayerTimes),
 			}];
-			setListData(listObject)
+			setListData(listObject);
 		} else {
 			setListData([]);
 		}
-	}, [prayerTimes?.length, isLoading])
-	console.log("item.hijriDate", listData);
+	}, [prayerTimes, isLoading]); // Add prayerTimes to the dependency array
 
 	return (
 		<SafeAreaView className='relative bg-primary h-full px-5'>
