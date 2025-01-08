@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import useGetUserLocation from "@/hooks/useGetUserLocation"
 
 const useGetPrayers = (date, latitude, longitude) => {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+
     useEffect(() => {
         setIsLoading(true)
         const fetchData = async () => {

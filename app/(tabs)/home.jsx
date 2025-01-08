@@ -1,27 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FlatList, Text, ScrollView, Dimensions, View } from 'react-native';
 import HomeHeader from "@/components/home/HomeHeader";
-import HomePrayersTimes, { prayerTimesForDates } from "@/components/home/HomePrayersTimes";
+import HomePrayersTimes from "@/components/home/HomePrayersTimes";
 const { width: screenWidth } = Dimensions.get('window'); // Get the screen width
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient'; // Import LinearGradient
 import useGetPrayers from '@/hooks/useGetPrayerTimes';
 import { useGetUserLocation } from '@/hooks/useGetUserLocation';
-import Loader from '@/components/Loader';
-
+import convertPrayerTimes from "@/lib/apiStructureFn";
+import { formatDate } from '@/hooks/useCurrentTime';
 const index = () => {
+
 	const { location } = useGetUserLocation();
-	const { prayerTimes, islamicDate, error, isLoading } = useGetPrayers("08-01-2025", location?.lat, location?.long);
-	console.log("remote prayerTimes: ", prayerTimes);
-	console.log("remote islamicDate: ", islamicDate);
+	const { prayerTimes, islamicDate, error, isLoading } = useGetPrayers(formatDate(new Date()), location?.lat, location?.long);
+	const [listData, setListData] = useState([])
+
+	useEffect(() => {
+		if (prayerTimes && Object.entries(prayerTimes)?.length > 0) {
+			const listObject = [{
+				hijriDate: `${islamicDate?.month?.number + 1} ${islamicDate?.month?.en}, ${islamicDate?.year}`,
+				prayerTimes: convertPrayerTimes(prayerTimes),
+			}];
+			setListData(listObject)
+		} else {
+			setListData([]);
+		}
+	}, [prayerTimes?.length, isLoading])
+	console.log("item.hijriDate", listData);
 
 	return (
 		<SafeAreaView className='relative bg-primary h-full px-5'>
 			<HomeHeader />
 			<ScrollView>
 				<FlatList
-					data={prayerTimesForDates}
+					data={listData}
 					horizontal // Enable horizontal scrolling
 					pagingEnabled // Snap each item to the screen
 					decelerationRate="fast" // Smooth scrolling
@@ -49,14 +62,16 @@ const index = () => {
 									backgroundColor="#49496F"
 									style={{ borderRadius: 5 }}
 								/>
-								<Text className='text-white font-pmedium text-lg mr-auto ml-4'>{islamicDate?.month?.number}{" "}{islamicDate?.month?.en}, {islamicDate?.year}</Text>
-								<MaterialCommunityIcons
-									name={"chevron-right"}
-									size={24}
-									color="white"
-									backgroundColor="#49496F"
-									style={{ borderRadius: 5 }}
-								/>
+								<Text className='text-white font-pmedium text-lg mr-auto ml-4'>{item.hijriDate}</Text>
+								{listData.length > 1 && (
+									<MaterialCommunityIcons
+										name={"chevron-right"}
+										size={24}
+										color="white"
+										backgroundColor="#49496F"
+										style={{ borderRadius: 5 }}
+									/>
+								)}
 							</View>
 							<HomePrayersTimes prayerTimes={item.prayerTimes} />
 						</LinearGradient>

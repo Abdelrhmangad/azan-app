@@ -1,10 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { StatusBar } from 'expo-status-bar';
 import HomePrayerItem from "@/components/home/HomePrayerItem";
-import AzanAudio from "@/assets/azans-audios/azan-audio.mp3";
 import { Audio } from "expo-av";
-import { ScrollView, Text } from 'react-native';
+import { ScrollView } from 'react-native';
 
 const HomePrayersTimes = ({ prayerTimes }) => {
     const [selectedId, setSelectedId] = useState(0);
@@ -60,11 +57,7 @@ const HomePrayersTimes = ({ prayerTimes }) => {
             }
         }, 1000); // Check every minute
 
-        return () => clearInterval(interval); // Cleanup interval on unmount
-    }, []);
-
-    // Configure audio mode for background playback
-    useEffect(() => {
+        // Configure audio mode for background playback
         const configureAudio = async () => {
             await Audio.setAudioModeAsync({
                 allowsRecordingIOS: false,
@@ -76,6 +69,7 @@ const HomePrayersTimes = ({ prayerTimes }) => {
         };
 
         configureAudio();
+        return () => clearInterval(interval); // Cleanup interval on unmount
     }, []);
 
     return (
@@ -95,54 +89,3 @@ const HomePrayersTimes = ({ prayerTimes }) => {
 }
 
 export default HomePrayersTimes
-
-
-const prayerTimesArr = [
-    {
-        time: "05:00 AM",
-        name: "Fajr",
-        icon: "weather-sunset-up", // Example icon from Material Community Icons
-        audio: AzanAudio,
-        audioDisabled: false,
-    },
-    {
-        time: "12:30 PM",
-        name: "Dhuhr",
-        icon: "weather-sunny", // Example icon from Material Community Icons
-        audio: AzanAudio,
-        audioDisabled: false,
-    },
-    {
-        time: "14:55 PM",
-        name: "Asr",
-        icon: "weather-partly-cloudy", // Example icon from Material Community Icons
-        audio: AzanAudio,
-        audioDisabled: false,
-    },
-    {
-        time: "18:30 PM",
-        name: "Maghrib",
-        icon: "weather-sunset-down", // Example icon from Material Community Icons
-        audio: AzanAudio,
-        audioDisabled: false,
-    },
-    {
-        time: "20:00 PM",
-        name: "Isha",
-        icon: "weather-night", // Example icon from Material Community Icons
-        audio: AzanAudio,
-        audioDisabled: false,
-    },
-];
-
-
-export const prayerTimesForDates = [
-    {
-        hijriDate: "Rajab 09, 1446 AH",
-        prayerTimes: prayerTimesArr,
-    },
-    {
-        hijriDate: "Rajab 10, 1446 AH",
-        prayerTimes: prayerTimesArr,
-    }
-]

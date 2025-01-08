@@ -2,6 +2,8 @@
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
+## For More Info about the types of the most important objects of the app look at the types.ts file 
+
 ## Get started
 
 1. Install dependencies

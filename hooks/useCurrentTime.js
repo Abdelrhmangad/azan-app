@@ -30,23 +30,12 @@ const useCurrentTime = () => {
     return { currentTime, hours, minutes, amPm };
 };
 
+export function formatDate(dateToBeFormatted) {
+    const day = dateToBeFormatted.getDate().toString().padStart(2, '0');
+    const month = (dateToBeFormatted.getMonth() + 1).toString().padStart(2, '0');
+    const year = dateToBeFormatted.getFullYear();
 
-
-export const useHijriDate = () => {
-    const [currentDate, setCurrentDate] = useState(new Date());
-    // Format the date to Hijri (Islamic) calendar
-    const [hijriDate, setHijriDate] = useState(new Intl.DateTimeFormat('en-u-ca-islamic', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    }).format(currentDate))
-
-    const hijriYear = hijriDate.split(' ')[2]
-    const hijriDay = hijriDate.split(' ')[1]
-    const hijriMonth = hijriDate.split(' ')[0]
-
-
-    return { hijriDate, hijriYear, hijriDay, hijriMonth };
+    return `${day}-${month}-${year}`;
 };
 
 export default useCurrentTime;
