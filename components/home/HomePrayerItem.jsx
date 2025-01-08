@@ -15,17 +15,17 @@ const HomePrayerItem = ({ item, selected, pressHandler, playAudio, index }) => {
                 <MaterialCommunityIcons
                     name={item.icon}
                     size={24}
-                    color="green"
+                    color="#A8A8C7"
                 />
                 <View className="ml-4 flex-row items-center justify-between flex-1">
-                    <Text className="text-lg font-psemibold text-white">{item.name}</Text>
+                    <Text className="text-lg font-psemibold text-[#E6E6EF]">{item.name}</Text>
                     <MaterialCommunityIcons
                         name={item.audioDisabled ? 'volume-low' : 'volume-high'}
                         size={18}
-                        color={item.audioDisabled ? 'gray' : `#16a085`}
+                        color={item.audioDisabled ? 'gray' : `#59D98E`}
                         className='me-auto ms-2'
                     />
-                    <Text className="text-lg font-pmedium text-white">{item.time}</Text>
+                    <Text className="text-lg font-pmedium text-[#E6E6EF]">{item.time}</Text>
                 </View>
             </View>
         </TouchableOpacity>
