@@ -6,7 +6,6 @@ import useCurrentTime from "@/hooks/useCurrentTime";
 
 const HomeHeader = () => {
     const { hours, minutes, amPm } = useCurrentTime();
-    console.log("hours", hours);
 
     return (
         <View className='pt-6'>

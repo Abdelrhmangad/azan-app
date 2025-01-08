@@ -16,9 +16,8 @@ const useCurrentTime = () => {
 
             setCurrentTime(`${hours % 12 || 12}:${minutes.toString().padStart(2, '0')} ${amPm}`);
             setHours(hours);
-            setMinutes(minutes);
+            setMinutes(minutes.toString().padStart(2, '0'));
             setAmPm(amPm);
-
         };
 
         const timer = setInterval(updateTime, 1000);
@@ -29,6 +28,25 @@ const useCurrentTime = () => {
     }, []);
 
     return { currentTime, hours, minutes, amPm };
+};
+
+
+
+export const useHijriDate = () => {
+    const [currentDate, setCurrentDate] = useState(new Date());
+    // Format the date to Hijri (Islamic) calendar
+    const [hijriDate, setHijriDate] = useState(new Intl.DateTimeFormat('en-u-ca-islamic', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    }).format(currentDate))
+
+    const hijriYear = hijriDate.split(' ')[2]
+    const hijriDay = hijriDate.split(' ')[1]
+    const hijriMonth = hijriDate.split(' ')[0]
+
+
+    return { hijriDate, hijriYear, hijriDay, hijriMonth };
 };
 
 export default useCurrentTime;
