@@ -49,7 +49,7 @@ const index = () => {
 									backgroundColor="#49496F"
 									style={{ borderRadius: 5 }}
 								/>
-								<Text className='text-white font-pmedium text-lg mr-auto ml-4'>{item.hijriDate}</Text>
+								<Text className='text-white font-pmedium text-lg mr-auto ml-4'>{islamicDate?.month?.number}{" "}{islamicDate?.month?.en}, {islamicDate?.year}</Text>
 								<MaterialCommunityIcons
 									name={"chevron-right"}
 									size={24}

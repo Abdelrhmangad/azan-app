@@ -27,9 +27,6 @@ const useGetPrayers = (date, latitude, longitude) => {
         setIsLoading(false)
     }, [date, latitude, longitude]);
 
-    console.log("Praying data", data);
-    console.log("Praying ERROR", error);
-
     return {
         data,
         prayerTimes: data?.data?.timings,
