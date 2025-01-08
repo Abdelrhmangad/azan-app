@@ -4,9 +4,9 @@ import { StatusBar } from 'expo-status-bar';
 import HomePrayerItem from "@/components/home/HomePrayerItem";
 import AzanAudio from "@/assets/azans-audios/azan-audio.mp3";
 import { Audio } from "expo-av";
-import { ScrollView } from 'react-native';
+import { ScrollView, Text } from 'react-native';
 
-const HomePrayersTimes = () => {
+const HomePrayersTimes = ({ prayerTimes }) => {
     const [selectedId, setSelectedId] = useState(0);
     const soundRef = useRef(null);
 
@@ -46,18 +46,18 @@ const HomePrayersTimes = () => {
     useEffect(() => {
         const interval = setInterval(() => {
             const now = new Date();
-
             const currentHours = now.getHours();
             const currentMinutes = now.getMinutes();
             const currentTimeString = `${String(currentHours).padStart(2, '0')}:${String(currentMinutes).padStart(2, '0')}`;
-
-            prayerTimesArr.forEach((prayer) => {
-                const prayerTime = prayer.time.split(" ")[0]
-                if (prayerTime === currentTimeString) {
-                    playAudio(prayer.audio);
-                    setSelectedId(prayer.name)
-                }
-            });
+            if (prayerTimes.length > 0) {
+                prayerTimes.forEach((prayer) => {
+                    const prayerTime = prayer.time.split(" ")[0]
+                    if (prayerTime === currentTimeString) {
+                        playAudio(prayer.audio);
+                        setSelectedId(prayer.name)
+                    }
+                });
+            }
         }, 1000); // Check every minute
 
         return () => clearInterval(interval); // Cleanup interval on unmount
@@ -79,8 +79,8 @@ const HomePrayersTimes = () => {
     }, []);
 
     return (
-        <ScrollView>
-            {prayerTimesArr.map((prayer, index) => (
+        <ScrollView >
+            {prayerTimes.length > 0 && prayerTimes.map((prayer, index) => (
                 <HomePrayerItem
                     key={prayer.name}
                     item={prayer}
@@ -134,3 +134,15 @@ const prayerTimesArr = [
         audioDisabled: false,
     },
 ];
+
+
+export const prayerTimesForDates = [
+    {
+        hijriDate: "Rajab 09, 1446 AH",
+        prayerTimes: prayerTimesArr,
+    },
+    {
+        hijriDate: "Rajab 10, 1446 AH",
+        prayerTimes: prayerTimesArr,
+    }
+]
