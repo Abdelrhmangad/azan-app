@@ -50,3 +50,21 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+
+
+## TODO TASKS
+    1. Make a function to check for the incoming prayer and update UI accordingly
+    2. calculate the remaining time for the next prayer
+    3. Make the list scrollable for other dates
+    4. Adding loading state to the list
+
+
+## Bugs
+Some of the bugs I counter while developing:
+- The app doesn't automatically refetch data after mounting -- has to do a save first
+
+
+
+
+
