@@ -3,9 +3,11 @@ import { icons } from '@/constants'
 import { Image, Text, View } from 'react-native'
 import { Link } from 'expo-router'
 import useCurrentTime from "@/hooks/useCurrentTime";
+import { useGetUserLocation } from '@/hooks/useGetUserLocation';
 
 const HomeHeader = () => {
     const { hours, minutes, amPm } = useCurrentTime();
+    const { city } = useGetUserLocation();
 
     return (
         <View className='pt-6'>
@@ -19,7 +21,7 @@ const HomeHeader = () => {
                         numberOfLines={1} // Restrict text to one line
                         ellipsizeMode='tail' // Add ellipsis at the end
                     >
-                        Itay el Baroud
+                        {city}
                     </Text>
                 </View>
                 <Link

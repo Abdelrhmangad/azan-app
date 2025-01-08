@@ -113,7 +113,7 @@ const prayerTimesArr = [
         audioDisabled: false,
     },
     {
-        time: "16:42 PM",
+        time: "14:55 PM",
         name: "Asr",
         icon: "weather-partly-cloudy", // Example icon from Material Community Icons
         audio: AzanAudio,

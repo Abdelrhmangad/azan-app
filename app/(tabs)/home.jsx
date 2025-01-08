@@ -1,19 +1,24 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { StatusBar } from 'expo-status-bar';
-import { FlatList, Animated, Text, ScrollView, Dimensions, View } from 'react-native';
+import { FlatList, Text, ScrollView, Dimensions, View } from 'react-native';
 import HomeHeader from "@/components/home/HomeHeader";
 import HomePrayersTimes, { prayerTimesForDates } from "@/components/home/HomePrayersTimes";
 const { width: screenWidth } = Dimensions.get('window'); // Get the screen width
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient'; // Import LinearGradient
+import useGetPrayers from '@/hooks/useGetPrayerTimes';
+import { useGetUserLocation } from '@/hooks/useGetUserLocation';
+import Loader from '@/components/Loader';
 
 const index = () => {
+	const { location } = useGetUserLocation();
+	const { prayerTimes, islamicDate, error, isLoading } = useGetPrayers("08-01-2025", location?.lat, location?.long);
+	console.log("remote prayerTimes: ", prayerTimes);
+	console.log("remote islamicDate: ", islamicDate);
 
 	return (
-		<SafeAreaView className='bg-primary h-full px-5'>
+		<SafeAreaView className='relative bg-primary h-full px-5'>
 			<HomeHeader />
-			{/* <HomePrayersTimes /> */}
 			<ScrollView>
 				<FlatList
 					data={prayerTimesForDates}
