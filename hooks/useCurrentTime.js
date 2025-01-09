@@ -10,11 +10,11 @@ const useCurrentTime = () => {
     useEffect(() => {
         const updateTime = () => {
             const now = new Date();
-            const hours = now.getHours();
+            const hours = now.getHours() % 12 || 12;
             const minutes = now.getMinutes();
             const amPm = hours >= 12 ? 'PM' : 'AM';
 
-            setCurrentTime(`${hours % 12 || 12}:${minutes.toString().padStart(2, '0')} ${amPm}`);
+            setCurrentTime(`${hours}:${minutes.toString().padStart(2, '0')} ${amPm}`);
             setHours(hours);
             setMinutes(minutes.toString().padStart(2, '0'));
             setAmPm(amPm);
