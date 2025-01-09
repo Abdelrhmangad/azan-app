@@ -2,11 +2,9 @@ import React, { useEffect, useRef } from 'react';
 import HomePrayerItem from "@/components/home/HomePrayerItem";
 import { Audio } from "expo-av";
 import { ScrollView } from 'react-native';
-import { comingPrayerHandler } from "@/lib/utils";
 import { useGlobalContext } from '@/context/GlobalProviders';
 const HomePrayersTimes = ({ prayerTimes }) => {
-    const { comingPrayer, setComingPrayer } = useGlobalContext();
-
+    const { comingPrayerData: { nextPrayer } } = useGlobalContext();
     const soundRef = useRef(null);
 
     // Function to stop the currently playing audio
@@ -53,11 +51,9 @@ const HomePrayersTimes = ({ prayerTimes }) => {
                     const prayerTime = prayer.time.split(" ")[0]
                     if (prayerTime === currentTimeString) {
                         playAudio(prayer.audio);
-                        setComingPrayer(prayer.name)
                     }
                 });
             }
-            const { remainingTime } = comingPrayerHandler(prayerTimes, setComingPrayer)
         }, 1000); // Check every minute
 
         // Configure audio mode for background playback
@@ -81,10 +77,7 @@ const HomePrayersTimes = ({ prayerTimes }) => {
                 <HomePrayerItem
                     key={prayer.name}
                     item={prayer}
-                    index={index}
-                    playAudio={playAudio}
-                    pressHandler={() => setComingPrayer(prayer.name)}
-                    selected={comingPrayer === prayer.name}
+                    selected={nextPrayer.name === prayer.name}
                 />
             ))}
         </ScrollView>

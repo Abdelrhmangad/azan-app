@@ -6,7 +6,7 @@ import useCurrentTime from "@/hooks/useCurrentTime";
 import { useGlobalContext } from '@/context/GlobalProviders';
 
 const HomeHeader = () => {
-    const { userCity, comingPrayer, currentTime } = useGlobalContext();
+    const { userCity, comingPrayerData, currentTime } = useGlobalContext();
 
     return (
         <View className='pt-6'>
@@ -35,7 +35,7 @@ const HomeHeader = () => {
                 style={{ height: 130 }}
             >
                 <View className='pt-10 flex-col items-center justify-center'>
-                    <Text className='text-white text-4xl font-pmedium'>{comingPrayer}</Text>
+                    <Text className='text-white text-4xl font-pmedium'>{comingPrayerData.nextPrayer.name}</Text>
                     <Text
                         className='text-6xl text-white pt-10 font-psemibold'
                     >
@@ -46,7 +46,7 @@ const HomeHeader = () => {
             </View>
             <View className='mb-6 flex-col items-center'>
                 <View className='flex-col items-center justify-center'>
-                    <Text className='text-gray-400 text-md font-pregular'>Next prayer in 04:28</Text>
+                    <Text className='text-gray-400 text-md font-pregular'>Next prayer in <Text className='text-[#E6E6EF]'>{comingPrayerData.remainingTime}</Text></Text>
                 </View>
             </View>
         </View>
