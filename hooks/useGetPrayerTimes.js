@@ -1,3 +1,4 @@
+import convertPrayerTimes from '@/lib/apiStructureFn';
 import { useState, useEffect } from 'react';
 
 const useGetPrayers = (date, latitude, longitude) => {
@@ -27,9 +28,25 @@ const useGetPrayers = (date, latitude, longitude) => {
         setIsLoading(false)
     }, [date, latitude, longitude]);
 
+    const [formattedPrayerTimes, setFormattedPrayerTimes] = useState([])
+    useEffect(() => {
+        const fetchedTimes = data?.data?.timings;
+        const fetchedIslamicDate = data?.data?.date?.hijri;
+        if (fetchedTimes && Object.entries(fetchedTimes)?.length > 0) {
+            const listObject = [{
+                hijriDate: `${fetchedIslamicDate?.month?.number + 1} ${fetchedIslamicDate?.month?.en}, ${fetchedIslamicDate?.year}`,
+                prayerTimes: convertPrayerTimes(fetchedTimes),
+            }];
+            setFormattedPrayerTimes(listObject);
+        } else {
+            setFormattedPrayerTimes([]);
+        }
+    }, [data?.data?.timings, isLoading]); // Add prayerTimes to the dependency array
+
     return {
         data,
         prayerTimes: data?.data?.timings,
+        formattedPrayerTimes: formattedPrayerTimes,
         islamicDate: data?.data?.date?.hijri,
         error,
         isLoading: isLoading,

@@ -8,9 +8,9 @@ const Loader = ({ isLoading }) => {
 
     return (
         <View
-            className="flex justify-center items-center w-full h-full bg-primary/60 z-10"
+            className="absolute flex justify-center items-center w-full h-full bg-primary/60 z-10"
             style={{
-                height: 400,
+                height: screenHeight,
             }}
         >
             <ActivityIndicator

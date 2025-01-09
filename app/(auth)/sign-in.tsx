@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { images } from '@/constants'
 import FormField from '@/components/FormField'
 import CustomButton from '@/components/CustomButton'
-import { signIn, signOut } from '@/lib/appWrite'
+import { signIn } from '@/lib/appWrite'
 
 const SignIn = () => {
     const [form, setForm] = React.useState({

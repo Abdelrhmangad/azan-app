@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { icons } from '@/constants'
 import { Image, Text, View } from 'react-native'
 import { Link } from 'expo-router'
 import useCurrentTime from "@/hooks/useCurrentTime";
-import { useGetUserLocation } from '@/hooks/useGetUserLocation';
+import { useGlobalContext } from '@/context/GlobalProviders';
 
 const HomeHeader = () => {
-    const { hours, minutes, amPm } = useCurrentTime();
-    const { city } = useGetUserLocation();
+    const { userCity, comingPrayer, currentTime } = useGlobalContext();
 
     return (
         <View className='pt-6'>
@@ -21,7 +20,7 @@ const HomeHeader = () => {
                         numberOfLines={1} // Restrict text to one line
                         ellipsizeMode='tail' // Add ellipsis at the end
                     >
-                        {city}
+                        {userCity}
                     </Text>
                 </View>
                 <Link
@@ -36,12 +35,12 @@ const HomeHeader = () => {
                 style={{ height: 130 }}
             >
                 <View className='pt-10 flex-col items-center justify-center'>
-                    <Text className='text-white text-4xl font-pmedium'>Fajr</Text>
+                    <Text className='text-white text-4xl font-pmedium'>{comingPrayer}</Text>
                     <Text
                         className='text-6xl text-white pt-10 font-psemibold'
                     >
-                        {hours}:{minutes}{" "}
-                        <Text className='text-lg text-white font-pregular'>{amPm}</Text>
+                        {currentTime.hours}:{currentTime.minutes}{" "}
+                        <Text className='text-lg text-white font-pregular'>{currentTime.amPm}</Text>
                     </Text>
                 </View>
             </View>

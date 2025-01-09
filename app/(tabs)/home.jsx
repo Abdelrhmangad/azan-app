@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FlatList, Text, ScrollView, Dimensions, View } from 'react-native';
 import HomeHeader from "@/components/home/HomeHeader";
@@ -6,34 +6,16 @@ import HomePrayersTimes from "@/components/home/HomePrayersTimes";
 const { width: screenWidth } = Dimensions.get('window'); // Get the screen width
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient'; // Import LinearGradient
-import useGetPrayers from '@/hooks/useGetPrayerTimes';
-import { useGetUserLocation } from '@/hooks/useGetUserLocation';
-import convertPrayerTimes from "@/lib/apiStructureFn";
-import { formatDate } from '@/hooks/useCurrentTime';
+import { useGlobalContext } from '@/context/GlobalProviders';
 const index = () => {
-
-	const { location } = useGetUserLocation();
-	const { prayerTimes, islamicDate, error, isLoading } = useGetPrayers(formatDate(new Date()), location?.lat, location?.long);
-	const [listData, setListData] = useState([])
-
-	useEffect(() => {
-		if (prayerTimes && Object.entries(prayerTimes)?.length > 0) {
-			const listObject = [{
-				hijriDate: `${islamicDate?.month?.number + 1} ${islamicDate?.month?.en}, ${islamicDate?.year}`,
-				prayerTimes: convertPrayerTimes(prayerTimes),
-			}];
-			setListData(listObject);
-		} else {
-			setListData([]);
-		}
-	}, [prayerTimes, isLoading]); // Add prayerTimes to the dependency array
+	const { formattedPrayerTimes } = useGlobalContext()
 
 	return (
 		<SafeAreaView className='relative bg-primary h-full px-5'>
 			<HomeHeader />
 			<ScrollView>
 				<FlatList
-					data={listData}
+					data={formattedPrayerTimes}
 					horizontal // Enable horizontal scrolling
 					pagingEnabled // Snap each item to the screen
 					decelerationRate="fast" // Smooth scrolling
@@ -62,7 +44,7 @@ const index = () => {
 									style={{ borderRadius: 5 }}
 								/>
 								<Text className='text-white font-pmedium text-lg mr-auto ml-4'>{item.hijriDate}</Text>
-								{listData.length > 1 && (
+								{formattedPrayerTimes.length > 1 && (
 									<MaterialCommunityIcons
 										name={"chevron-right"}
 										size={24}
