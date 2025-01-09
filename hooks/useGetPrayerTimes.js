@@ -34,7 +34,7 @@ const useGetPrayers = (date, latitude, longitude) => {
         const fetchedIslamicDate = data?.data?.date?.hijri;
         if (fetchedTimes && Object.entries(fetchedTimes)?.length > 0) {
             const listObject = [{
-                hijriDate: `${fetchedIslamicDate?.month?.number + 1} ${fetchedIslamicDate?.month?.en}, ${fetchedIslamicDate?.year}`,
+                hijriDate: `${fetchedIslamicDate?.date.split("-")[0]} ${fetchedIslamicDate?.month?.en}, ${fetchedIslamicDate?.date.split("-")[2]}`,
                 prayerTimes: convertPrayerTimes(fetchedTimes),
             }];
             setFormattedPrayerTimes(listObject);

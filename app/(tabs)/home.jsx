@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FlatList, Text, ScrollView, Dimensions, View } from 'react-native';
 import HomeHeader from "@/components/home/HomeHeader";

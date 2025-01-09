@@ -8,7 +8,6 @@ import CustomButton from '@/components/CustomButton'
 import { useGlobalContext } from '@/context/GlobalProviders'
 
 const index = () => {
-  const { isLoading, isLoggedIn, user } = useGlobalContext();
 
   return <Redirect href="/home" />
 

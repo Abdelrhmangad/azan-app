@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import HomePrayerItem from "@/components/home/HomePrayerItem";
 import { Audio } from "expo-av";
 import { ScrollView } from 'react-native';
-import { comingPrayerSelection } from "@/lib/utils";
+import { comingPrayerHandler } from "@/lib/utils";
 import { useGlobalContext } from '@/context/GlobalProviders';
 const HomePrayersTimes = ({ prayerTimes }) => {
     const { comingPrayer, setComingPrayer } = useGlobalContext();
@@ -57,7 +57,7 @@ const HomePrayersTimes = ({ prayerTimes }) => {
                     }
                 });
             }
-            comingPrayerSelection(prayerTimes, setComingPrayer)
+            const { remainingTime } = comingPrayerHandler(prayerTimes, setComingPrayer)
         }, 1000); // Check every minute
 
         // Configure audio mode for background playback
