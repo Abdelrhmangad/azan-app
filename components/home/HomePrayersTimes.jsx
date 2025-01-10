@@ -77,7 +77,7 @@ const HomePrayersTimes = ({ prayerTimes }) => {
                 <HomePrayerItem
                     key={prayer.name}
                     item={prayer}
-                    selected={nextPrayer.name === prayer.name}
+                    selected={nextPrayer?.name === prayer.name}
                 />
             ))}
         </ScrollView>

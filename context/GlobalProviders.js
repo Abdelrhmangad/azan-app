@@ -12,12 +12,12 @@ const GlobalProvider = ({ children }) => {
 	const { location, city } = useGetUserLocation();
 	const { prayerTimes, islamicDate, formattedPrayerTimes, isLoading: loadingPrayers } = useGetPrayers(formatDate(new Date()), location?.lat, location?.long);
 	const { hours, minutes, amPm } = useCurrentTime();
-	const { nextPrayer, remainingTime } = useComingPrayer(formattedPrayerTimes);
+	const { loadingNextPrayer, nextPrayer, remainingTime } = useComingPrayer(formattedPrayerTimes);
 
 	return (
 		<GlobalContext.Provider
 			value={{
-				loading: loadingPrayers,
+				loading: loadingPrayers || loadingNextPrayer,
 				prayerTimes: prayerTimes,
 				formattedPrayerTimes: formattedPrayerTimes,
 				islamicDate: islamicDate,

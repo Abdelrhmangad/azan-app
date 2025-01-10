@@ -41,7 +41,7 @@ const useGetPrayers = (date, latitude, longitude) => {
         } else {
             setFormattedPrayerTimes([]);
         }
-    }, [data?.data?.timings, isLoading]); // Add prayerTimes to the dependency array
+    }, [data?.data?.timings, data?.data?.date?.hijri, isLoading]); // Add prayerTimes to the dependency array
 
     return {
         data,

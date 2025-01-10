@@ -7,7 +7,6 @@ import { useGlobalContext } from '@/context/GlobalProviders';
 
 const HomeHeader = () => {
     const { userCity, comingPrayerData, currentTime } = useGlobalContext();
-
     return (
         <View className='pt-6'>
             <View className='flex items-center justify-between flex-row'>
@@ -35,7 +34,7 @@ const HomeHeader = () => {
                 style={{ height: 130 }}
             >
                 <View className='pt-10 flex-col items-center justify-center'>
-                    <Text className='text-white text-4xl font-pmedium'>{comingPrayerData.nextPrayer.name}</Text>
+                    <Text className='text-white text-4xl font-pmedium'>{comingPrayerData.nextPrayer?.name ?? ""}</Text>
                     <Text
                         className='text-6xl text-white pt-10 font-psemibold'
                     >
