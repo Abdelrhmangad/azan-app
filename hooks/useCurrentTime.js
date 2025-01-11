@@ -12,7 +12,7 @@ const useCurrentTime = () => {
             const now = new Date();
             const hours = now.getHours() % 12 || 12;
             const minutes = now.getMinutes();
-            const amPm = hours >= 12 ? 'PM' : 'AM';
+            const amPm = now.getHours() >= 12 ? 'PM' : 'AM';
 
             setCurrentTime(`${hours}:${minutes.toString().padStart(2, '0')} ${amPm}`);
             setHours(hours);
