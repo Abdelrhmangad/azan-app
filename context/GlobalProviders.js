@@ -1,3 +1,4 @@
+import Loader from "@/components/Loader";
 import useCurrentTime, { formatDate } from "@/hooks/useCurrentTime";
 import useGetPrayers from "@/hooks/useGetPrayerTimes";
 import { useGetUserLocation } from "@/hooks/useGetUserLocation";
@@ -35,7 +36,11 @@ const GlobalProvider = ({ children }) => {
 				},
 			}}
 		>
-			{children}
+			{nextPrayer ? (
+				children
+			) : (
+				<Loader />
+			)}
 		</GlobalContext.Provider>
 	);
 };
