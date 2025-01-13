@@ -1,50 +1,58 @@
 {
-	"expo": {
-		"name": "Azan",
-		"slug": "azan",
-		"version": "1.0.0",
-		"orientation": "portrait",
-		"icon": "./assets/mosqueImg.png",
-		"scheme": "Azan",
-		"userInterfaceStyle": "automatic",
-		"newArchEnabled": true,
-		"ios": {
-			"supportsTablet": true
-		},
-		"android": {
-			"adaptiveIcon": {
-				"foregroundImage": "./assets/mosqueBg.jpg",
-				"backgroundColor": "#ffffff"
-			},
-			"package": "com.jsm.azan"
-		},
-		"web": {
-			"bundler": "metro",
-			"output": "static",
-			"favicon": "./assets/favicon.png"
-		},
-		"plugins": [
-			"expo-router",
-			"expo-font",
-			[
-				"expo-splash-screen",
-				{
-					"image": "./assets/splash-icon.png",
-					"imageWidth": 200,
-					"resizeMode": "contain",
-					"backgroundColor": "#ffffff"
-				}
-			],
-			[
-				"expo-video",
-				{
-					"supportsBackgroundPlayback": true,
-					"supportsPictureInPicture": true
-				}
-			]
-		],
-		"experiments": {
-			"typedRoutes": true
-		}
-	}
+  "expo": {
+    "name": "Azan",
+    "slug": "azan",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/mosqueImg.png",
+    "scheme": "Azan",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/mosqueBg.jpg",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.jsm.azan"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/mosqueBg.jpg",
+          "imageWidth": 900,
+          "resizeMode": "cover",
+          "backgroundColor": "#ffffff"
+        }
+      ],
+      [
+        "expo-video",
+        {
+          "supportsBackgroundPlayback": true,
+          "supportsPictureInPicture": true
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "05ee8d7b-9eab-4a3c-bf66-b4278ed07721"
+      }
+    }
+  }
 }
