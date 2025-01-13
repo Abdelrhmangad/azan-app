@@ -14,7 +14,7 @@ export default function convertPrayerTimes(prayerTimesObj) {
             .map(([name, time]) => {
                 const formattedTime = convertTo12HourFormat(time);
                 return {
-                    time: formattedTime,
+                    time: "10:28 PM",
                     name,
                     icon: icons[name],
                     audio: AzanAudio,
@@ -24,7 +24,7 @@ export default function convertPrayerTimes(prayerTimesObj) {
     }
 }
 
-function convertTo12HourFormat(time24) {
+export function convertTo12HourFormat(time24) {
     const [hour, minute] = time24.split(":").map(Number);
     const period = hour >= 12 ? "PM" : "AM";
     const hour12 = hour % 12 || 12; // Convert 0 to 12 for midnight

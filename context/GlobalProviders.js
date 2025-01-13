@@ -1,14 +1,27 @@
+import Loader from "@/components/Loader";
 import useCurrentTime, { formatDate } from "@/hooks/useCurrentTime";
 import useGetPrayers from "@/hooks/useGetPrayerTimes";
 import { useGetUserLocation } from "@/hooks/useGetUserLocation";
 import useComingPrayer from "@/lib/utils";
-import React, { createContext, useContext, useState } from "react";
-
+import React, { createContext, useContext, useRef, useState } from "react";
+import { useAudio } from "@/hooks/useAudio";
 const GlobalContext = createContext();
 export const useGlobalContext = () => useContext(GlobalContext);
 
 const GlobalProvider = ({ children }) => {
-	const [comingPrayer, setComingPrayer] = useState(null);
+	const soundRef = useRef(null);
+	const [isPlaying, setIsPlaying] = useState(false);
+	const { playAudio, stopAudio } = useAudio()
+	const handlePlayAudio = async (audioFile) => {
+		console.log("handlePlayAudio", audioFile);
+		await playAudio(audioFile, soundRef, setIsPlaying);
+	};
+
+	const handleStopAudio = async () => {
+		await stopAudio(soundRef, setIsPlaying);
+	};
+
+
 	const { location, city } = useGetUserLocation();
 	const { prayerTimes, islamicDate, formattedPrayerTimes, isLoading: loadingPrayers } = useGetPrayers(formatDate(new Date()), location?.lat, location?.long);
 	const { hours, minutes, amPm } = useCurrentTime();
@@ -21,8 +34,6 @@ const GlobalProvider = ({ children }) => {
 				prayerTimes: prayerTimes,
 				formattedPrayerTimes: formattedPrayerTimes,
 				islamicDate: islamicDate,
-				comingPrayer: comingPrayer,
-				setComingPrayer: setComingPrayer,
 				userCity: city,
 				comingPrayerData: {
 					nextPrayer,
@@ -33,9 +44,16 @@ const GlobalProvider = ({ children }) => {
 					hours,
 					amPm,
 				},
+				isPlaying,
+				playAudio: handlePlayAudio,
+				stopAudio: handleStopAudio,
 			}}
 		>
-			{children}
+			{nextPrayer ? (
+				children
+			) : (
+				<Loader />
+			)}
 		</GlobalContext.Provider>
 	);
 };

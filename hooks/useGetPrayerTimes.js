@@ -6,6 +6,7 @@ const useGetPrayers = (date, latitude, longitude) => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
+    // Fetch prayer times data from the API
     useEffect(() => {
         setIsLoading(true)
         const fetchData = async () => {
@@ -28,6 +29,7 @@ const useGetPrayers = (date, latitude, longitude) => {
         setIsLoading(false)
     }, [date, latitude, longitude]);
 
+    // Format the fetched prayer times to our app structure
     const [formattedPrayerTimes, setFormattedPrayerTimes] = useState([])
     useEffect(() => {
         const fetchedTimes = data?.data?.timings;
